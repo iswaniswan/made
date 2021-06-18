@@ -1,0 +1,5 @@
+include ':app'
+rootProject.name = "ThatChapterFan"
+include ':core'
+include ':subscription'
+include ':favourite'

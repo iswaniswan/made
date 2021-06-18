@@ -1,0 +1,30 @@
+From 30fd42170b6b05ddbe2811dda7d4146e64053a41 Mon Sep 17 00:00:00 2001
+From: iswaniswan <iswan1s71@gmail.com>
+Date: Fri, 18 Jun 2021 09:56:58 +0700
+Subject: [PATCH] add gitignore
+
+---
+ .gitignore | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..1d4104e
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,11 @@
++*.iml
++.gradle
++/local.properties
++/.idea/*
++.DS_Store
++/build
++/captures
++.externalNativeBuild
++.cxx
++local.properties
++gradle.properties
+-- 
+2.27.0.windows.1
+

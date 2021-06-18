@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/iv_thumbnails"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/white"
+            app:layout_constraintDimensionRatio="H,16:9"
+            android:contentDescription="@string/thumbnails_video"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            app:layout_constraintEnd_toEndOf="@id/iv_thumbnails"
+            app:layout_constraintBottom_toBottomOf="@id/iv_thumbnails"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="@color/secondaryDarkColor"
+            android:textColor="@color/primaryTextColor"
+            android:textAlignment="center"
+            tools:text="22:51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            tools:text="@string/video_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/secondaryDarkColor"
+            app:layout_constraintStart_toStartOf="@id/iv_thumbnails"
+            app:layout_constraintTop_toBottomOf="@id/iv_thumbnails" />
+
+        <TextView
+            android:id="@+id/tv_views"
+            tools:text="12k views"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintStart_toStartOf="@id/iv_thumbnails"
+            android:layout_marginStart="16dp"
+            android:textColor="#8F8F8F"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_published"
+            tools:text="3 weeks ago"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintStart_toEndOf="@id/tv_views"
+            android:layout_marginStart="16dp"
+            android:textColor="#8F8F8F"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
