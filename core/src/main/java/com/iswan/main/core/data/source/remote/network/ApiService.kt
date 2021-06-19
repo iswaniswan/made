@@ -9,6 +9,7 @@ interface ApiService {
 
     @GET("playlistItems")
     suspend fun getPlaylistItems(
+        @Query("pageToken") pageToken: String,
         @Query("playlistId") playlistId: String = Config.playlistId,
         @Query("part") part: String = "snippet",
         @Query("maxResults") maxResults: Int = 20,

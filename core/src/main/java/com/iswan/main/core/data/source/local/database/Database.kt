@@ -2,10 +2,11 @@ package com.iswan.main.core.data.source.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.iswan.main.core.data.source.local.entity.RemoteKeys
 import com.iswan.main.core.data.source.local.entity.VideoEntity
 
 @Database(
-    entities = [VideoEntity::class],
+    entities = [VideoEntity::class, RemoteKeys::class],
     version = 1,
     exportSchema = false
 )

@@ -17,7 +17,10 @@ data class ResponsePlaylistItems(
 	val etag: String? = null,
 
 	@field:SerializedName("items")
-	val items: List<ItemsPlaylist>
+	val items: List<ItemsPlaylist>,
+
+	@field:SerializedName("prevPageToken")
+	val prevPageToken: String? = null
 )
 
 data class SnippetPlaylist(

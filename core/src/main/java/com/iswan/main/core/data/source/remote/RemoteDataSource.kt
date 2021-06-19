@@ -21,7 +21,7 @@ class RemoteDataSource @Inject constructor(
             val snippets = ArrayList<ItemsVideo>()
             val arrayId = ArrayList<String>()
             try {
-                val playlist = apiService.getPlaylistItems()
+                val playlist = apiService.getPlaylistItems("")
                 val listItems = playlist.items
                 if (listItems.isNotEmpty()) {
                     listItems.map {

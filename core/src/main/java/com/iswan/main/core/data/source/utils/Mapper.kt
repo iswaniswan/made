@@ -50,6 +50,21 @@ object Mapper {
             )
         }
 
+    fun mapEntityToModel(it: VideoEntity): Video =
+        Video(
+            it.videoId,
+            it.title,
+            it.description,
+            it.thumbnails,
+            it.image,
+            it.publishedAt,
+            it.duration,
+            it.viewCount,
+            it.likeCount,
+            it.dislikeCount,
+            it.isFavourite
+        )
+
     fun mapModelToEntity(video: Video): VideoEntity =
         VideoEntity(
             video.videoId,
