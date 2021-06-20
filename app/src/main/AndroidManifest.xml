@@ -30,7 +30,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.ThatChapterFan.NoActionBar"></activity>
+            android:theme="@style/Theme.ThatChapterFan.NoActionBar"/>
     </application>
 
 </manifest>

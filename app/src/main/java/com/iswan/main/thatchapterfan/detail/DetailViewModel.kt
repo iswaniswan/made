@@ -12,6 +12,7 @@ class DetailViewModel @Inject constructor(
     private val mainUseCase: MainUseCase
 ): ViewModel() {
 
-    fun setFavourite(video: Video, state: Boolean) = mainUseCase.setFavourite(video, state)
+    fun updateFavourite(video: Video) =
+        mainUseCase.updateFavourite(video)
 
 }

@@ -2,9 +2,7 @@ package com.iswan.main.thatchapterfan.detail
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,10 +10,7 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.ViewCompat.setBackgroundTintList
 import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -86,8 +81,9 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
 
     private val ToggleButton.featuresFull: Unit
         get() {
-            backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.primaryDarkColor))
-            setOnClickListener {  }
+            backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.primaryDarkColor))
+            setOnClickListener { }
             setOnCheckedChangeListener(favouriteListener())
         }
 
@@ -103,19 +99,19 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
     private fun favouriteListener(): CompoundButton.OnCheckedChangeListener? =
         object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                when {
-                    isChecked -> Toast.makeText(
+                if (isChecked) {
+                    Toast.makeText(
                         this@DetailActivity,
-                        getString(R.string.add_to_favourite),
-                        Toast.LENGTH_LONG
+                        getString(R.string.add_to_favourite), Toast.LENGTH_LONG
                     ).show()
-                    else -> Toast.makeText(
+                } else {
+                    Toast.makeText(
                         this@DetailActivity,
-                        getString(R.string.remove_from_favourite),
-                        Toast.LENGTH_LONG
+                        getString(R.string.remove_from_favourite), Toast.LENGTH_LONG
                     ).show()
                 }
-                viewModel.setFavourite(video, isChecked)
+                video.isFavourite = isChecked
+                viewModel.updateFavourite(video)
             }
         }
 

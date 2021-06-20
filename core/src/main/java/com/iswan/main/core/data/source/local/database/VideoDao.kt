@@ -13,20 +13,16 @@ interface VideoDao {
     fun getAllVideos(): Flow<List<VideoEntity>>
 
     @Query("SELECT * FROM videos WHERE isFavourite=1")
-    fun getFavouriteVideos(): Flow<List<VideoEntity>>
+    fun getFavouriteVideos(): PagingSource<Int, VideoEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVideo(videos: List<VideoEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertVideoUnsuspend(videos: List<VideoEntity>)
-
     @Update
-    fun setFavourite(videoEntity: VideoEntity)
+    suspend fun updateFavourite(videoEntity: VideoEntity)
 
     @Query("DELETE FROM videos")
     suspend fun clearVideos()
-
 
     /* paging */
     @Query("SELECT * FROM videos")
@@ -34,7 +30,7 @@ interface VideoDao {
 
     /* remote keys query */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(remoteKey: List<RemoteKeys>)
+    suspend fun insertAllKeys(remoteKey: List<RemoteKeys>)
 
     @Query("SELECT * FROM remote_keys WHERE videoId = :videoId")
     suspend fun getRemoteKeys(videoId: String): RemoteKeys

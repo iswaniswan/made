@@ -26,7 +26,7 @@ data class SnippetVideo(
 	val title: String,
 
 	@field:SerializedName("thumbnails")
-	val thumbnails: Thumbnails,
+	val thumbnails: Thumbnails?,
 )
 
 data class ItemsVideo(

@@ -7,8 +7,6 @@ import androidx.room.PrimaryKey
 data class RemoteKeys(
     @PrimaryKey
     val videoId: String,
-    var prevKey: Int? = 1,
-    var nextKey: Int?,
     val prevPageToken: String?,
     val nextPageToken: String?
 )

@@ -1,16 +1,14 @@
-package com.iswan.main.core.ui
+package com.iswan.main.core.domain.adapters
 
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.iswan.main.core.data.source.local.entity.VideoEntity
-import com.iswan.main.core.data.source.utils.Mapper
 import com.iswan.main.core.databinding.ItemVideoBinding
 import com.iswan.main.core.domain.model.Video
+import com.iswan.main.core.ui.Utils
 
 class VideosPagingDataAdapter:
     PagingDataAdapter<Video, VideosPagingDataAdapter.MovieViewHolder>(COMPARATOR) {

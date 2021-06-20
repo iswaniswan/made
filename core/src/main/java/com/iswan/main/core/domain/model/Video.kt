@@ -15,5 +15,5 @@ data class Video(
     val viewCount: Int,
     val likeCount: Int,
     val dislikeCount: Int,
-    val isFavourite: Boolean
+    var isFavourite: Boolean
 ): Parcelable

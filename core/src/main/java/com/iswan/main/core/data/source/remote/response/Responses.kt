@@ -23,10 +23,10 @@ data class ResourceId(
 data class Thumbnails(
 
     @field:SerializedName("medium")
-    val medium: Medium,
+    val medium: Medium?,
 
     @field:SerializedName("standard")
-    val standard: Standard,
+    val standard: Standard?,
 )
 
 data class Medium(
@@ -35,7 +35,7 @@ data class Medium(
     val width: Int,
 
     @field:SerializedName("url")
-    val url: String,
+    val url: String?,
 
     @field:SerializedName("height")
     val height: Int
@@ -47,7 +47,7 @@ data class Standard(
     val width: Int,
 
     @field:SerializedName("url")
-    val url: String,
+    val url: String?,
 
     @field:SerializedName("height")
     val height: Int
