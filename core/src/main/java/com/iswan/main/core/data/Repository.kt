@@ -25,17 +25,30 @@ class Repository @Inject constructor(
 ): IRepository {
 
     private val scope = CoroutineScope(dispatcher)
+    private val pagingConfig = PagingConfig(
+        pageSize = 5,
+        prefetchDistance = 10,
+        enablePlaceholders = false
+    )
 
     override fun getPagedVideos(): Flow<PagingData<Video>> =
         Pager(
-            config = PagingConfig(
-                pageSize = 5,
-                enablePlaceholders = false,
-            ),
-            remoteMediator = PageKeyedRemoteMediator(dao, service, scope),
+            config = pagingConfig,
+            remoteMediator = PageKeyedRemoteMediator(dao, service, dispatcher),
             pagingSourceFactory = {
                 dao.pagedVideos()
             }
+        ).flow
+            .map { paging ->
+                paging.map {
+                    Mapper.mapEntityToModel(it)
+                }
+            }
+
+    override fun getFavouriteVideos(): Flow<PagingData<Video>> =
+        Pager(
+            config = pagingConfig,
+            pagingSourceFactory = { dao.getFavouriteVideos() }
         ).flow
             .map { paging ->
                 paging.map {
@@ -51,15 +64,4 @@ class Repository @Inject constructor(
             }
         }
     }
-
-    override fun getFavouriteVideos(): Flow<PagingData<Video>> =
-        Pager(
-            config = PagingConfig(pageSize = 5, enablePlaceholders = false),
-            pagingSourceFactory = { dao.getFavouriteVideos() }
-        ).flow
-            .map { paging ->
-                paging.map {
-                    Mapper.mapEntityToModel(it)
-                }
-            }
 }

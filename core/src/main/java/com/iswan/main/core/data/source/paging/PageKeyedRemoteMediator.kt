@@ -16,46 +16,37 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.util.*
 
-
 @ExperimentalPagingApi
 class PageKeyedRemoteMediator(
     private val dao: VideoDao,
     private val service: ApiService,
-    private val scope: CoroutineScope
+    private val dispatcher: CoroutineDispatcher
 ) : RemoteMediator<Int, VideoEntity>() {
 
-    private val PAGE_SIZE = 20
+    private val pagedSize = 20
     private val TAG = "PageKeyedRemoteMediator"
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, VideoEntity>)
             : MediatorResult {
-        
+
+        return try {
+
             val pageToken: String? = when (loadType) {
                 LoadType.REFRESH -> ""
                 LoadType.PREPEND -> {
                     return MediatorResult.Success(endOfPaginationReached = true)
                 }
                 LoadType.APPEND -> {
-                    withContext(Dispatchers.IO) {
-                        val remoteKey = async {
-                            getRemoteKeyForLastItem(state)
-                        }.await()
-                        if (remoteKey == null) {
-                            Log.d(TAG, "load: APPEND REMOTEKEY IS NULL")
-                            MediatorResult.Success(endOfPaginationReached = true)
-                        }
-                        return@withContext remoteKey?.nextPageToken
-                    }
-
+                    val remoteKey = getRemoteKeyForLastItem(state)
+                    remoteKey?.nextPageToken ?: ""
                 }
             }
-        
-        return try {
+
+
             val apiResponse = service.getPlaylistItems(pageToken.toString())
             if (apiResponse.items.isNotEmpty()) {
 
-                val endOfPaginationReached = apiResponse.items.size < PAGE_SIZE
-                Log.d(TAG, "load: end page ? --> $endOfPaginationReached")
+                val endOfPaginationReached = apiResponse.items.size < pagedSize
                 val prevPageToken = apiResponse.prevPageToken ?: ""
                 val nextPageToken = apiResponse.nextPageToken ?: ""
 
@@ -88,22 +79,23 @@ class PageKeyedRemoteMediator(
                 }
                 MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
             } else {
-                Log.d(TAG, "load: apiResponse unexecuted")
                 MediatorResult.Success(endOfPaginationReached = true)
             }
         } catch (e: IOException) {
-            Log.d(TAG, "exception: ${e.message}")
+            Log.d(TAG, "IOException: ${e.message}")
             MediatorResult.Error(e)
         } catch (e: HttpException) {
-            Log.d(TAG, "exception: ${e.message}")
+            Log.d(TAG, "HttpException: ${e.message}")
             MediatorResult.Error(e)
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, VideoEntity>): RemoteKeys? =
-        state.pages.lastOrNull() { it.data.isNotEmpty() } ?.data?.lastOrNull()
+    private suspend fun getRemoteKeyForLastItem(
+        state: PagingState<Int, VideoEntity>
+    ): RemoteKeys? {
+        return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let {
                 dao.getRemoteKeys(it.videoId)
             }
-
+    }
 }
