@@ -7,5 +7,10 @@
 /captures
 .externalNativeBuild
 .cxx
+
+.idea/
+
+core/build/
+maps/build/
+
 local.properties
-gradle.properties
