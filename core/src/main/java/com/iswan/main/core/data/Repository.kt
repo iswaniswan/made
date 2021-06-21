@@ -34,7 +34,7 @@ class Repository @Inject constructor(
     override fun getPagedVideos(): Flow<PagingData<Video>> =
         Pager(
             config = pagingConfig,
-            remoteMediator = PageKeyedRemoteMediator(dao, service, dispatcher),
+            remoteMediator = PageKeyedRemoteMediator(dao, service),
             pagingSourceFactory = {
                 dao.pagedVideos()
             }

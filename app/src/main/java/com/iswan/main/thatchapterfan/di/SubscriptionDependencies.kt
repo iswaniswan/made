@@ -1,6 +1,6 @@
 package com.iswan.main.thatchapterfan.di
 
-import com.iswan.main.thatchapterfan.utils.Preferences
+import com.iswan.main.core.domain.usecase.UserUseCase
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -9,6 +9,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface SubscriptionDependencies {
 
-    fun preferences(): Preferences
+    fun userUseCase(): UserUseCase
 
 }

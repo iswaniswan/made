@@ -21,12 +21,11 @@ import javax.inject.Inject
 
 class FavouriteFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavouriteBinding
-
     @Inject
     lateinit var factory: FavouriteViewModelFactory
-
     private val viewModel: FavouriteViewModel by viewModels { factory }
+
+    private lateinit var binding: FragmentFavouriteBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

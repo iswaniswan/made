@@ -3,22 +3,24 @@ package com.iswan.main.subscription
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.iswan.main.thatchapterfan.R
 import com.iswan.main.thatchapterfan.databinding.ActivitySubscriptionBinding
 import com.iswan.main.thatchapterfan.di.SubscriptionDependencies
-import com.iswan.main.thatchapterfan.utils.Preferences
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
 class SubscriptionActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySubscriptionBinding
-
     @Inject
-    lateinit var preferences: Preferences
-    private var isPremium: Boolean = false
+    lateinit var factory: SubscriptionViewModelFactory
+    private val viewModel: SubscriptionViewModel by viewModels { factory }
+
+    private lateinit var binding: ActivitySubscriptionBinding
+    private var userName: String = ""
+    private var isSubscribed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initInject()
@@ -32,10 +34,7 @@ class SubscriptionActivity : AppCompatActivity() {
 
         binding.btnActivate.setOnClickListener {
             hideKeyboard()
-            val newPref = JsonObject()
-            newPref.addProperty("name", binding.etName.text.toString())
-            newPref.addProperty("isPremium", !isPremium)
-            preferences.setPref(newPref)
+            subscribeUser()
             loadPreferences()
         }
 
@@ -51,22 +50,35 @@ class SubscriptionActivity : AppCompatActivity() {
             .inject(this)
     }
 
+    private fun subscribeUser() {
+        userName = binding.etName.text.toString()
+        isSubscribed = !isSubscribed
+        val data = JsonObject()
+        data.addProperty("name", userName)
+        data.addProperty("isSubscribed", isSubscribed)
+        viewModel.subscribeUser(data)
+    }
+
     private fun loadPreferences() {
-        val pref = preferences.getPref()
-        isPremium = pref.get("isPremium").asBoolean
+        viewModel.getUser().let {
+            userName = it.get("name").asString
+            isSubscribed = it.get("isSubscribed").asBoolean
+        }
+
         with(binding) {
             tvSubscription.text =
-                if (isPremium) getString(R.string.subscription_active)
+                if (isSubscribed) getString(R.string.subscription_active)
                 else getString(R.string.subscription_inactive)
 
             etName.apply {
-                setText(pref.get("name").asString)
-                isEnabled = isPremium == false
+                setText(userName)
+                isEnabled = isSubscribed == false
             }
 
-            btnActivate.text =
-                if (isPremium) getString(R.string.deactivate)
-                else getString(R.string.activate)
+            btnActivate.apply {
+                if (isSubscribed) text = getString(R.string.deactivate)
+                else text = getString(R.string.activate)
+            }
         }
     }
 

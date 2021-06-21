@@ -11,5 +11,4 @@ interface IRepository {
     fun updateFavourite(video: Video)
 
     fun getPagedVideos(): Flow<PagingData<Video>>
-
 }

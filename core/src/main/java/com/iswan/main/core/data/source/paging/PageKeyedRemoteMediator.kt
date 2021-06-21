@@ -19,8 +19,7 @@ import java.util.*
 @ExperimentalPagingApi
 class PageKeyedRemoteMediator(
     private val dao: VideoDao,
-    private val service: ApiService,
-    private val dispatcher: CoroutineDispatcher
+    private val service: ApiService
 ) : RemoteMediator<Int, VideoEntity>() {
 
     private val pagedSize = 20

@@ -18,6 +18,8 @@ ext.versions = [
         paging          : '3.0.0',
         retrofit        : '2.9.0',
         room            : '2.3.0',
+        securePreferences   : '0.1.7',
+        securityCrypto  : '1.1.0-alpha03',
 
         /* unit test */
         junit           : '4.13.2',

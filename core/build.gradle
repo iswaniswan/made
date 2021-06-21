@@ -57,6 +57,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$versions.room"
     implementation "androidx.room:room-ktx:$versions.room"
 
+    api "androidx.security:security-crypto:$versions.securityCrypto"
+    api "com.scottyab:secure-preferences-lib:$versions.securePreferences"
+
 
 
 }

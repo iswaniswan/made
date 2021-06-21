@@ -16,13 +16,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
+import com.iswan.main.core.BuildConfig
 import com.iswan.main.core.domain.model.Video
 import com.iswan.main.core.ui.Utils
-import com.iswan.main.thatchapterfan.BuildConfig
 import com.iswan.main.thatchapterfan.R
 import com.iswan.main.thatchapterfan.databinding.ActivityDetailBinding
 import com.iswan.main.thatchapterfan.detail.utils.MyPlaybackEventListener
-import com.iswan.main.thatchapterfan.utils.Preferences
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import javax.inject.Inject
@@ -34,9 +33,7 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var video: Video
 
-    @Inject
-    lateinit var pref: Preferences
-    private val viewModel: DetailViewModel by viewModels<DetailViewModel>()
+    private val viewModel: DetailViewModel by viewModels()
 
     companion object {
         const val EXTRA_VIDEO = "extra_video"
@@ -72,12 +69,12 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
             tvDescription.text = video.description
             tbFavourite.isChecked = video.isFavourite
             tbFavourite.apply {
-                if (isPremium() == false) featuresLimit else featuresFull
+                if (isSubscribed() == false) featuresLimit else featuresFull
             }
         }
     }
 
-    private fun isPremium(): Boolean = pref.getPref().get("isPremium").asBoolean
+    private fun isSubscribed(): Boolean = viewModel.isSubscribed()
 
     private val ToggleButton.featuresFull: Unit
         get() {
@@ -124,7 +121,7 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
         p1?.play()
         p1?.setPlaybackEventListener(object : MyPlaybackEventListener() {
             override fun onPlaying() {
-                if (isPremium() == false) {
+                if (isSubscribed() == false) {
                     p1.pause()
                     notifyPremium()
                 }

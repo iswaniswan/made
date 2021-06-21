@@ -3,6 +3,7 @@ package com.iswan.main.thatchapterfan
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -12,7 +13,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.iswan.main.thatchapterfan.databinding.ActivityMainBinding
-import com.iswan.main.thatchapterfan.utils.Preferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,9 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    private val viewModel: MainViewModel by viewModels()
 
-    @Inject
-    lateinit var pref: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerOpened(drawerView: View) {
                 val tvGreetings = drawerView.findViewById<TextView>(R.id.tv_greetings)
                 val greets: String =
-                    getString(R.string.welcome) + " " + pref.getPref().get("name").asString
+                    getString(R.string.welcome) + " " + viewModel.getUsername()
                 tvGreetings.text = greets
             }
 

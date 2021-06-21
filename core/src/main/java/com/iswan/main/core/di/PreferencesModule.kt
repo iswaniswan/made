@@ -1,7 +1,7 @@
-package com.iswan.main.thatchapterfan.di
+package com.iswan.main.core.di
 
 import android.content.Context
-import com.iswan.main.thatchapterfan.utils.Preferences
+import com.iswan.main.core.data.security.SessionManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +15,7 @@ class PreferencesModule {
 
     @Singleton
     @Provides
-    fun providePreferences(@ApplicationContext context: Context): Preferences {
-        return Preferences(context)
+    fun provideSessionManager(@ApplicationContext context: Context): SessionManager {
+        return SessionManager(context)
     }
-
 }

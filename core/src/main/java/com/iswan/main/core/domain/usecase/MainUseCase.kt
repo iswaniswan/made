@@ -11,5 +11,4 @@ interface MainUseCase {
     fun updateFavourite(video: Video)
 
     fun getPagedVideos(): Flow<PagingData<Video>>
-
 }
