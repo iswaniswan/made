@@ -14,3 +14,4 @@ core/build/
 maps/build/
 
 local.properties
+gradle.properties
