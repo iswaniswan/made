@@ -14,6 +14,7 @@ import com.iswan.main.core.domain.model.Video
 import com.iswan.main.thatchapterfan.databinding.FragmentFavouriteBinding
 import com.iswan.main.thatchapterfan.detail.DetailActivity
 import com.iswan.main.thatchapterfan.di.FavouriteDependencies
+import com.iswan.main.thatchapterfan.home.extensions.viewLifecycle
 import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -25,7 +26,7 @@ class FavouriteFragment : Fragment() {
     lateinit var factory: FavouriteViewModelFactory
     private val viewModel: FavouriteViewModel by viewModels { factory }
 
-    private lateinit var binding: FragmentFavouriteBinding
+    private var binding: FragmentFavouriteBinding by viewLifecycle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

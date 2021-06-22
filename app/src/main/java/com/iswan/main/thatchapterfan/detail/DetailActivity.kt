@@ -11,6 +11,7 @@ import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -23,6 +24,7 @@ import com.iswan.main.thatchapterfan.R
 import com.iswan.main.thatchapterfan.databinding.ActivityDetailBinding
 import com.iswan.main.thatchapterfan.detail.utils.MyPlaybackEventListener
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.ref.WeakReference
 import java.text.NumberFormat
 
 
@@ -33,6 +35,9 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
     private lateinit var video: Video
 
     private val viewModel: DetailViewModel by viewModels()
+
+    private lateinit var mFragmentManager: FragmentManager
+    private lateinit var youtubeFragment: YouTubePlayerSupportFragmentX
 
     companion object {
         const val EXTRA_VIDEO = "extra_video"
@@ -45,14 +50,20 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
 
         video = intent.getParcelableExtra<Video>(EXTRA_VIDEO) as Video
 
-        val mFragmentManager = supportFragmentManager
-        val youtubeFragment = YouTubePlayerSupportFragmentX.newInstance()
+        mFragmentManager = supportFragmentManager
+        youtubeFragment =  YouTubePlayerSupportFragmentX.newInstance()
         mFragmentManager.commit {
             add(R.id.youtube_fragment, youtubeFragment)
         }
         youtubeFragment.initialize(BuildConfig.API_KEY, this)
-
         updateView()
+    }
+
+    override fun onBackPressed() {
+        if (!youtubeFragment.isDetached) {
+            youtubeFragment.onDetach()
+        }
+        super.onBackPressed()
     }
 
     private fun updateView() {
@@ -132,6 +143,13 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
         p1?.addFullscreenControlFlag(YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE)
     }
 
+    override fun onInitializationFailure(
+        p0: YouTubePlayer.Provider?,
+        p1: YouTubeInitializationResult?
+    ) {
+        Log.d("TAG", "onInitializationFailure: ")
+    }
+
     private fun notifyPremium() {
         Snackbar.make(binding.root, "Premium features", Snackbar.LENGTH_LONG)
             .setAction("ACTIVATE NOW", View.OnClickListener {
@@ -139,13 +157,6 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             })
             .show()
-    }
-
-    override fun onInitializationFailure(
-        p0: YouTubePlayer.Provider?,
-        p1: YouTubeInitializationResult?
-    ) {
-        Log.d("TAG", "onInitializationFailure: ")
     }
 
     override fun onResume() {

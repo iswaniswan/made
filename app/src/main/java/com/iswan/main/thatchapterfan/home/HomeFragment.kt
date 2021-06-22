@@ -30,7 +30,6 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels<HomeViewModel>()
 
     private var binding: FragmentHomeBinding by viewLifecycle()
-    private lateinit var videoAdapter: VideosPagingDataAdapter
 
     private val TAG = "HOMEFRAGMENT"
 
@@ -38,6 +37,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            videoAdapter = VideosPagingDataAdapter()
+            val videoAdapter = VideosPagingDataAdapter()
 
             with(binding.rvVideos) {
                 setHasFixedSize(true)
@@ -89,14 +89,10 @@ class HomeFragment : Fragment() {
                 }
             })
 
-            loadData()
-        }
-    }
-
-    private fun loadData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.pagedVideos.collectLatest { paging ->
-                videoAdapter.submitData(paging)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.pagedVideos.collectLatest { paging ->
+                    videoAdapter.submitData(paging)
+                }
             }
         }
     }
