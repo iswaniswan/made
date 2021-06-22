@@ -3,7 +3,6 @@ package com.iswan.main.core.di
 import androidx.paging.ExperimentalPagingApi
 import com.iswan.main.core.data.Repository
 import com.iswan.main.core.data.UserRepository
-import com.iswan.main.core.data.security.SessionManager
 import com.iswan.main.core.domain.repository.IRepository
 import com.iswan.main.core.domain.repository.IUserRepository
 import dagger.Binds

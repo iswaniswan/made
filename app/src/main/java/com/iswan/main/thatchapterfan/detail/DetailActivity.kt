@@ -24,7 +24,6 @@ import com.iswan.main.thatchapterfan.databinding.ActivityDetailBinding
 import com.iswan.main.thatchapterfan.detail.utils.MyPlaybackEventListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
-import javax.inject.Inject
 
 
 @AndroidEntryPoint

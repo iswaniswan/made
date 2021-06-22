@@ -1,25 +1,21 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ThatChapterFan</string>
-    <string name="thumbnails_video">Thumbnails video</string>
-    <string name="view_error">Something went wrong.. please reload!</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_favourite">Favourite</string>
-    <string name="video_title">Video Title</string>
-    <string name="publishedOn">Published on</string>
-    <string name="your_name">Your Name</string>
-    <string name="subscription_inactive">Your subscription is inactive</string>
-    <string name="subscription_active">Your subscription is now active</string>
-    <string name="activate">Activate</string>
-    <string name="deactivate">Deactivate</string>
-    <string name="add_to_favourite">Add to favourite</string>
-    <string name="remove_from_favourite">Remove from favourite</string>
-    <string name="welcome">Welcome</string>
-    <string name="made">MADE</string>
     <string name="version">Version</string>
     <string name="app_version">2.0</string>
     <string name="crime_case_videos">Crime Case Videos</string>
-    <string name="title_subscription">Subscription</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_favourite">Favourite</string>
     <string name="menu_subscription">Subscription</string>
+    <string name="welcome">Welcome</string>
+    <string name="publishedOn">Published on</string>
+    <string name="your_name">Your Name</string>
+    <string name="add_to_favourite">Add to favourite</string>
+    <string name="remove_from_favourite">Remove from favourite</string>
+    <string name="made">MADE</string>
     <string name="favourite">Favourite</string>
-    <string name="title_favourite">Module Title</string>
+    <string name="activate" tools:keep="@string/activate">Activate</string>
+    <string name="deactivate" tools:keep="@string/deactivate">Deactivate</string>
+    <string name="title_subscription" tools:keep="@string/title_subscription">Subscription</string>
+    <string name="subscription_inactive" tools:keep="@string/subscription_inactive">Your subscription is inactive</string>
+    <string name="subscription_active" tools:keep="@string/subscription_active">Your subscription is now active</string>
 </resources>

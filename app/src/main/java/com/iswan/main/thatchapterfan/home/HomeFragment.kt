@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.iswan.main.core.domain.model.Video
 import com.iswan.main.core.domain.adapters.GeneralLoadStateAdapter
 import com.iswan.main.core.domain.adapters.VideosPagingDataAdapter
+import com.iswan.main.core.domain.model.Video
 import com.iswan.main.thatchapterfan.databinding.FragmentHomeBinding
 import com.iswan.main.thatchapterfan.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint

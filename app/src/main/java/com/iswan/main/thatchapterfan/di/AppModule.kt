@@ -8,7 +8,6 @@ import com.iswan.main.core.domain.usecase.UserInteractor
 import com.iswan.main.core.domain.usecase.UserUseCase
 import dagger.Binds
 import dagger.Module
-import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 

@@ -11,7 +11,6 @@ import com.iswan.main.core.data.source.local.entity.VideoEntity
 import com.iswan.main.core.data.source.remote.network.ApiService
 import com.iswan.main.core.data.source.remote.response.ItemsVideo
 import com.iswan.main.core.data.source.utils.Mapper
-import kotlinx.coroutines.*
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.*
@@ -30,7 +29,7 @@ class PageKeyedRemoteMediator(
 
         return try {
 
-            val pageToken: String? = when (loadType) {
+            val pageToken: String = when (loadType) {
                 LoadType.REFRESH -> ""
                 LoadType.PREPEND -> {
                     return MediatorResult.Success(endOfPaginationReached = true)
@@ -42,7 +41,7 @@ class PageKeyedRemoteMediator(
             }
 
 
-            val apiResponse = service.getPlaylistItems(pageToken.toString())
+            val apiResponse = service.getPlaylistItems(pageToken)
             if (apiResponse.items.isNotEmpty()) {
 
                 val endOfPaginationReached = apiResponse.items.size < pagedSize
@@ -92,7 +91,7 @@ class PageKeyedRemoteMediator(
     private suspend fun getRemoteKeyForLastItem(
         state: PagingState<Int, VideoEntity>
     ): RemoteKeys? {
-        return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
+        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let {
                 dao.getRemoteKeys(it.videoId)
             }

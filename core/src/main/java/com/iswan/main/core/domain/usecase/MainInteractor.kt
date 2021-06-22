@@ -3,7 +3,6 @@ package com.iswan.main.core.domain.usecase
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import com.iswan.main.core.data.Repository
-import com.iswan.main.core.data.UserRepository
 import com.iswan.main.core.domain.model.Video
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

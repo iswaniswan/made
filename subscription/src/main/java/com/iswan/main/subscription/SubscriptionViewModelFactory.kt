@@ -2,7 +2,6 @@ package com.iswan.main.subscription
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.iswan.main.core.domain.usecase.MainUseCase
 import com.iswan.main.core.domain.usecase.UserUseCase
 import javax.inject.Inject
 
