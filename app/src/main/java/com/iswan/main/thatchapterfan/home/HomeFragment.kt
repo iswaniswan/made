@@ -9,24 +9,27 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.paging.LoadState
 import com.iswan.main.core.domain.adapters.GeneralLoadStateAdapter
 import com.iswan.main.core.domain.adapters.VideosPagingDataAdapter
 import com.iswan.main.core.domain.model.Video
 import com.iswan.main.thatchapterfan.databinding.FragmentHomeBinding
 import com.iswan.main.thatchapterfan.detail.DetailActivity
+import com.iswan.main.thatchapterfan.home.extensions.viewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels<HomeViewModel>()
 
+    private var binding: FragmentHomeBinding by viewLifecycle()
     private lateinit var videoAdapter: VideosPagingDataAdapter
 
     private val TAG = "HOMEFRAGMENT"
@@ -35,7 +38,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,11 +52,9 @@ class HomeFragment : Fragment() {
                 adapter = videoAdapter.withLoadStateHeaderAndFooter(
                     header =
                     GeneralLoadStateAdapter {
-                        Log.d(TAG, "GeneralLoadStateAdapter --> Header RETRY ")
                         videoAdapter.retry()
                     },
                     footer = GeneralLoadStateAdapter {
-                        Log.d(TAG, "GeneralLoadStateAdapter --> Footer RETRY ")
                         videoAdapter.retry()
                     }
                 )
