@@ -80,24 +80,25 @@ object Utils {
 
     private fun showAsDWMY(days: Int): String {
         var dwmy: String
-        if (days < 7) {
-            if (days > 1) dwmy = days.toString() + " days"
-            else dwmy = days.toString() + " day"
-        } else if (days >= 7 && days < 30) {
-            val w = floor(days.toDouble() / 7).toInt()
-            if (w > 1) dwmy = w.toString() + " weeks"
-            else dwmy = w.toString() + " week"
-        } else if (days >= 30 && days < 365) {
-            val m = floor(days.toDouble() / 30).toInt()
-            if (m > 1) dwmy = m.toString() + " months"
-            else dwmy = m.toString() + " month"
-        } else if (days >= 365) {
-            val y = floor(days.toDouble() / 365).toInt()
-            if (y > 1) dwmy = y.toString() + " years"
-            else dwmy = y.toString() + " year"
-        } else dwmy = "long"
+
+        when {
+            days < 7 -> days.let {
+                dwmy = if (it > 1) "$it days" else "$it day"
+            }
+            days in 7..30 -> days.let {
+                val week = (it.toDouble() / 7).toInt()
+                dwmy = if (week > 1) "$week weeks" else "$week week"
+            }
+            days in 31..365 -> days.let {
+                val month = (it.toDouble()/30).toInt()
+                dwmy = if (month > 1) "$month months" else "$month month"
+            }
+            else -> days.let {
+                val year = (it.toDouble()/365).toInt()
+                dwmy = if (year > 1) "$year years" else "$year year"
+            }
+        }
 
         return "about $dwmy ago"
     }
-
 }
