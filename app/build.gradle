@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id "org.sonarqube" version "3.3"
 }
 apply from: '../shared_dependencies.gradle'
 android {
@@ -33,7 +32,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -55,12 +54,4 @@ dependencies {
     /* youtube video player */
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "iswaniswan_made"
-        property "sonar.organization", "learningroup"
-        property "sonar.host.url", "https://sonarcloud.io"
-    }
 }
