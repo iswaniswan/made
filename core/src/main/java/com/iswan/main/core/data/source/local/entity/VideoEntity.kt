@@ -1,13 +1,10 @@
 package com.iswan.main.core.data.source.local.entity
 
-import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @Entity(tableName = "videos")
 data class VideoEntity(
     @PrimaryKey
@@ -33,4 +30,4 @@ data class VideoEntity(
     @ColumnInfo(name = "dislikeCount") var dislikeCount: Int,
 
     @ColumnInfo(name = "isFavourite") var isFavourite: Boolean = false
-): Parcelable
+)

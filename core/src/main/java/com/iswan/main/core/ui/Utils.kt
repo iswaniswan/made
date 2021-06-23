@@ -74,7 +74,7 @@ object Utils {
         } else showAsDWMY(days.toInt())
     }
 
-    private fun showAsMin(minutes: Long): String = "about ${minutes} minutes ago"
+    private fun showAsMin(minutes: Long): String = "about $minutes minutes ago"
 
     private fun showAsH24(hours: Long): String = "about $hours ago"
 

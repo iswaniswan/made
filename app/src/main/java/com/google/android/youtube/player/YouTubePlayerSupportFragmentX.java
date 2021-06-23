@@ -6,6 +6,7 @@ package com.google.android.youtube.player;
 
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ public class YouTubePlayerSupportFragmentX extends Fragment implements YouTubePl
     private String d;
     private YouTubePlayer.OnInitializedListener e;
     private boolean f;
+
+    private final String TAG = "YTSupportFragmentX";
 
     public static YouTubePlayerSupportFragmentX newInstance() {
         return new YouTubePlayerSupportFragmentX();
@@ -84,17 +87,23 @@ public class YouTubePlayerSupportFragmentX extends Fragment implements YouTubePl
     }
 
     public void onDestroyView() {
+        Log.d(TAG, "onDestroyView: -----------> 1");
         this.c.c(this.getActivity().isFinishing());
+        Log.d(TAG, "onDestroyView: -----------> 2");
         this.c = null;
+        Log.d(TAG, "onDestroyView: -----------> 3");
         super.onDestroyView();
     }
 
     public void onDestroy() {
+        Log.d(TAG, "onDestroy: -----------> 1");
         if (this.c != null) {
+            Log.d(TAG, "onDestroy: -----------> 2");
             FragmentActivity var1 = this.getActivity();
+            Log.d(TAG, "onDestroy: -----------> 3");
             this.c.b(var1 == null || var1.isFinishing());
+            Log.d(TAG, "onDestroy: -----------> 4");
         }
-
         super.onDestroy();
     }
 

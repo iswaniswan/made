@@ -7,11 +7,6 @@ import com.iswan.main.core.domain.model.Video
 
 object Mapper {
 
-    private val String.asInt: Int
-        get() {
-            return Integer.parseInt(this) ?: 0
-        }
-
     fun mapResponseToEntities(input: List<ItemsVideo>): List<VideoEntity> {
         val videos = ArrayList<VideoEntity>()
         input.map {
@@ -23,9 +18,9 @@ object Mapper {
                 it.snippet.thumbnails?.standard?.url ?: "",
                 it.snippet.publishedAt,
                 it.contentDetails.duration,
-                it.statistics.viewCount.asInt,
-                it.statistics.likeCount.asInt,
-                it.statistics.dislikeCount.asInt,
+                it.statistics.viewCount.toInt(),
+                it.statistics.likeCount.toInt(),
+                it.statistics.dislikeCount.toInt(),
                 false
             )
             videos.add(video)

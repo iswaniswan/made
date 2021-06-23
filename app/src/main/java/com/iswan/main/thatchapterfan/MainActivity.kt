@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private val viewModel: MainViewModel by viewModels()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -54,8 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun welcome() {
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-            }
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
 
             override fun onDrawerOpened(drawerView: View) {
                 val tvGreetings = drawerView.findViewById<TextView>(R.id.tv_greetings)
@@ -64,11 +62,9 @@ class MainActivity : AppCompatActivity() {
                 tvGreetings.text = greets
             }
 
-            override fun onDrawerClosed(drawerView: View) {
-            }
+            override fun onDrawerClosed(drawerView: View) = Unit
 
-            override fun onDrawerStateChanged(newState: Int) {
-            }
+            override fun onDrawerStateChanged(newState: Int) = Unit
         })
 
     }

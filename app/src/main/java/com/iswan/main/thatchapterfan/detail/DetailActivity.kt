@@ -1,9 +1,11 @@
 package com.iswan.main.thatchapterfan.detail
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
@@ -31,13 +33,16 @@ import java.text.NumberFormat
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 
-    private lateinit var binding: ActivityDetailBinding
+    private val TAG = "DETAIL-ACTIVITY"
+
     private lateinit var video: Video
+
+    private lateinit var binding: ActivityDetailBinding
 
     private val viewModel: DetailViewModel by viewModels()
 
-    private lateinit var mFragmentManager: FragmentManager
-    private lateinit var youtubeFragment: YouTubePlayerSupportFragmentX
+    private var _youtubeFragment: YouTubePlayerSupportFragmentX? = null
+    private val youtubeFragment = _youtubeFragment!!
 
     companion object {
         const val EXTRA_VIDEO = "extra_video"
@@ -50,20 +55,15 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
 
         video = intent.getParcelableExtra<Video>(EXTRA_VIDEO) as Video
 
-        mFragmentManager = supportFragmentManager
-        youtubeFragment =  YouTubePlayerSupportFragmentX.newInstance()
+        val mFragmentManager = supportFragmentManager
+
+        _youtubeFragment = YouTubePlayerSupportFragmentX.newInstance()
+
         mFragmentManager.commit {
             add(R.id.youtube_fragment, youtubeFragment)
         }
         youtubeFragment.initialize(BuildConfig.API_KEY, this)
         updateView()
-    }
-
-    override fun onBackPressed() {
-        if (!youtubeFragment.isDetached) {
-            youtubeFragment.onDetach()
-        }
-        super.onBackPressed()
     }
 
     private fun updateView() {
@@ -162,6 +162,11 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
     override fun onResume() {
         updateView()
         super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _youtubeFragment = null
     }
 }
 

@@ -23,8 +23,8 @@ class SubscriptionActivity : AppCompatActivity() {
     private var isSubscribed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initInject()
         super.onCreate(savedInstanceState)
+        initInject()
         binding = ActivitySubscriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

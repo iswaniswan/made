@@ -16,7 +16,6 @@ import com.iswan.main.core.domain.adapters.VideosPagingDataAdapter
 import com.iswan.main.core.domain.model.Video
 import com.iswan.main.thatchapterfan.databinding.FragmentHomeBinding
 import com.iswan.main.thatchapterfan.detail.DetailActivity
-import com.iswan.main.thatchapterfan.home.extensions.viewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -29,7 +28,8 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels<HomeViewModel>()
 
-    private var binding: FragmentHomeBinding by viewLifecycle()
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     private val TAG = "HOMEFRAGMENT"
 
@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,6 +46,12 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
             val videoAdapter = VideosPagingDataAdapter()
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.pagedVideos.collectLatest { paging ->
+                    videoAdapter.submitData(paging)
+                }
+            }
 
             with(binding.rvVideos) {
                 setHasFixedSize(true)
@@ -89,12 +95,12 @@ class HomeFragment : Fragment() {
                 }
             })
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.pagedVideos.collectLatest { paging ->
-                    videoAdapter.submitData(paging)
-                }
-            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
