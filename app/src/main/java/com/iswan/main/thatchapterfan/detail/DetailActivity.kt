@@ -147,7 +147,7 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
         p0: YouTubePlayer.Provider?,
         p1: YouTubeInitializationResult?
     ) {
-        Log.d("TAG", "onInitializationFailure: ")
+        Log.d(TAG, "onInitializationFailure: ${p0.toString()}")
     }
 
     private fun notifyPremium() {
