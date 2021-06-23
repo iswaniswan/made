@@ -26,7 +26,7 @@ class DatabaseModule {
             context,
             Database::class.java, "videos_db"
         ).fallbackToDestructiveMigration()
-//            .openHelperFactory(factory)
+            .openHelperFactory(factory)
             .build()
     }
 

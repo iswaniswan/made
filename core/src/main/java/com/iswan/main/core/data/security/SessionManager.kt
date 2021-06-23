@@ -63,23 +63,4 @@ class SessionManager @Inject constructor(
             addProperty("isSubscribed", pref.getBoolean(IS_SUBSCRIBED, false))
         }
     }
-
-
-//    private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-//
-//    fun setPref(obj: JsonObject) {
-//        preferences.edit {
-//            putString(NAME, obj.get("name").asString)
-//            putBoolean(IS_PREMIUM, obj.get("isPremium").asBoolean)
-//        }
-//    }
-//
-//    fun getPref(): JsonObject {
-//        return JsonObject().apply {
-//            this.addProperty("name", preferences.getString(NAME, ""))
-//            this.addProperty("isPremium", preferences.getBoolean(IS_PREMIUM, false))
-//        }
-//    }
-
-
 }

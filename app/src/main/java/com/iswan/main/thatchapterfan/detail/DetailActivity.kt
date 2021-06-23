@@ -42,7 +42,7 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
     private val viewModel: DetailViewModel by viewModels()
 
     private var _youtubeFragment: YouTubePlayerSupportFragmentX? = null
-    private val youtubeFragment = _youtubeFragment!!
+    private val youtubeFragment get() = _youtubeFragment!!
 
     companion object {
         const val EXTRA_VIDEO = "extra_video"

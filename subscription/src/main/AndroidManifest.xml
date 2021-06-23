@@ -13,7 +13,8 @@
     </dist:module>
 
     <application>
-        <activity android:name=".SubscriptionActivity">
+        <activity android:name=".SubscriptionActivity"
+            android:exported="true" android:permission="android.permssions.ACCOUNT_MANAGER">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

@@ -4,20 +4,15 @@ import com.google.android.youtube.player.YouTubePlayer
 
 open class MyPlaybackEventListener: YouTubePlayer.PlaybackEventListener {
 
-        override fun onPlaying() {
-        }
+        override fun onPlaying() = Unit
 
-        override fun onPaused() {
-        }
+        override fun onPaused() = Unit
 
-        override fun onStopped() {
-        }
+        override fun onStopped() = Unit
 
-        override fun onBuffering(p0: Boolean) {
-        }
+        override fun onBuffering(p0: Boolean) = Unit
 
-        override fun onSeekTo(p0: Int) {
-        }
+        override fun onSeekTo(p0: Int) = Unit
 
 }
 
