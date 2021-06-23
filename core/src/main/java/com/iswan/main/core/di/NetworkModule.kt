@@ -1,5 +1,6 @@
 package com.iswan.main.core.di
 
+import com.iswan.main.core.BuildConfig
 import com.iswan.main.core.data.source.remote.network.ApiService
 import com.iswan.main.core.data.source.remote.network.Config
 import dagger.Module
@@ -8,6 +9,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,11 +24,25 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideInterceptor(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        val hostname = Config.HOSTNAME
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/iWoTtFo714hioRKSAzri5CEgQagcR06xGqVkRWcbh5Y=")
+            .add(hostname, "sha256/M2pS3X16LmTc0kWi6ZbauzFyI46xRfQ3lN6NWxhNAM8=")
+            .add(hostname, "sha256/Qfuuqw8z0Q5XohqInWAnnMLnrnSiyxXN2247iG4HzV0=")
+            .build()
+
+        val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
-            .build()
+            .certificatePinner(certificatePinner)
+
+        if (BuildConfig.DEBUG) {
+            okHttpClient
+                .addInterceptor(HttpLoggingInterceptor()
+                .setLevel(HttpLoggingInterceptor.Level.BODY))
+        }
+
+        return okHttpClient.build()
     }
 
     @Singleton

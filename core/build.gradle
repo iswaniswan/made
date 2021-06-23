@@ -56,6 +56,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$versions.room"
     implementation "androidx.room:room-ktx:$versions.room"
 
+    implementation "net.zetetic:android-database-sqlcipher:$versions.sqlChiper"
+    implementation "androidx.sqlite:sqlite-ktx:$versions.sqLiteKtx"
+
     api "androidx.security:security-crypto:$versions.securityCrypto"
     api "com.scottyab:secure-preferences-lib:$versions.securePreferences"
 
