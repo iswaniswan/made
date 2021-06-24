@@ -1,12 +1,11 @@
 package com.google.android.youtube.player;
 
-/**
- * Please create this directories schema com.google.android.youtube.player and post the file there
+/*
+  Please create this directories schema com.google.android.youtube.player and post the file there
  */
 
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.youtube.player.internal.ab;
 
+@SuppressWarnings({"ALL", "NullableProblems"})
 public class YouTubePlayerSupportFragmentX extends Fragment implements YouTubePlayer.Provider {
     private final YouTubePlayerSupportFragmentX.a a = new YouTubePlayerSupportFragmentX.a();
     private Bundle b;

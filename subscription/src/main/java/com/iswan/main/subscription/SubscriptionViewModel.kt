@@ -12,15 +12,4 @@ class SubscriptionViewModel @Inject constructor(
     fun getUser(): JsonObject = userUseCase.getUser()
 
     fun subscribeUser(obj: JsonObject) = userUseCase.subscribeUser(obj)
-
-    /*
-    fun subscribeUser(name: String)
-
-    fun unsubscribeUser()
-
-    fun isUserSubscribed(): Boolean
-
-    fun getUser(): String?
-    * */
-
 }

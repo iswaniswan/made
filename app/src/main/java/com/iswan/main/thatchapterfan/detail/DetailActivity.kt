@@ -1,19 +1,15 @@
 package com.iswan.main.thatchapterfan.detail
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -26,7 +22,6 @@ import com.iswan.main.thatchapterfan.R
 import com.iswan.main.thatchapterfan.databinding.ActivityDetailBinding
 import com.iswan.main.thatchapterfan.detail.utils.MyPlaybackEventListener
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.ref.WeakReference
 import java.text.NumberFormat
 
 
@@ -79,7 +74,7 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
             tvDescription.text = video.description
             tbFavourite.isChecked = video.isFavourite
             tbFavourite.apply {
-                if (isSubscribed() == false) featuresLimit else featuresFull
+                if (isSubscribed()) featuresFull else featuresLimit
             }
         }
     }
@@ -103,23 +98,21 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
             }
         }
 
-    private fun favouriteListener(): CompoundButton.OnCheckedChangeListener? =
-        object : CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                if (isChecked) {
-                    Toast.makeText(
-                        this@DetailActivity,
-                        getString(R.string.add_to_favourite), Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        this@DetailActivity,
-                        getString(R.string.remove_from_favourite), Toast.LENGTH_LONG
-                    ).show()
-                }
-                video.isFavourite = isChecked
-                viewModel.updateFavourite(video)
+    private fun favouriteListener(): CompoundButton.OnCheckedChangeListener =
+        CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                Toast.makeText(
+                    this@DetailActivity,
+                    getString(R.string.add_to_favourite), Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this@DetailActivity,
+                    getString(R.string.remove_from_favourite), Toast.LENGTH_LONG
+                ).show()
             }
+            video.isFavourite = isChecked
+            viewModel.updateFavourite(video)
         }
 
     override fun onInitializationSuccess(
@@ -131,7 +124,7 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
         p1?.play()
         p1?.setPlaybackEventListener(object : MyPlaybackEventListener() {
             override fun onPlaying() {
-                if (isSubscribed() == false) {
+                if (!isSubscribed()) {
                     p1.pause()
                     notifyPremium()
                 }
@@ -152,10 +145,10 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
 
     private fun notifyPremium() {
         Snackbar.make(binding.root, "Premium features", Snackbar.LENGTH_LONG)
-            .setAction("ACTIVATE NOW", View.OnClickListener {
+            .setAction("ACTIVATE NOW") {
                 val uri = Uri.parse("thatchapterfan://subscription")
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
-            })
+            }
             .show()
     }
 

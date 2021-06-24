@@ -37,7 +37,7 @@
 -dontwarn javax.annotation.**
 -dontwarn kotlin.Unit
 -dontwarn retrofit2.KotlinExtensions
--dontwarn retrofit2.KotlinExtensions$*
+-dontwarn retrofit2.KotlinExtensions.**
 -if interface * { @retrofit2.http.* <methods>; }
 -keep,allowobfuscation interface <1>
 #
