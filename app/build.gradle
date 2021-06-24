@@ -51,5 +51,4 @@ dependencies {
 
     /* youtube video player */
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-
 }

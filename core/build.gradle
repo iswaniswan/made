@@ -59,7 +59,4 @@ dependencies {
 
     api "androidx.security:security-crypto:$versions.securityCrypto"
     api "com.scottyab:secure-preferences-lib:$versions.securePreferences"
-
-
-
 }
