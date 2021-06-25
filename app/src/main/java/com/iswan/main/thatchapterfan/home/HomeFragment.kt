@@ -33,7 +33,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,7 +82,6 @@ class HomeFragment : Fragment() {
                 }
             }
 
-
             videoAdapter.setOnItemClickCallback(object : VideosPagingDataAdapter.IOnItemClickCallback {
                 override fun onItemClick(video: Video) {
                     val intent = Intent(requireActivity(), DetailActivity::class.java)
@@ -93,8 +93,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

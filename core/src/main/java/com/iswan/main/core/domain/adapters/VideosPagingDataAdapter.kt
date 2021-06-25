@@ -60,10 +60,8 @@ class VideosPagingDataAdapter:
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val currentItem = getItem(position)
-        /* map to model here */
         if (currentItem != null) holder.bind(
             currentItem
         )
     }
-
 }

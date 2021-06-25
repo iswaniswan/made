@@ -41,7 +41,9 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        leakyPlayer = null
+        if (leakyPlayer != null) {
+            leakyPlayer = null
+        }
     }
 }
 

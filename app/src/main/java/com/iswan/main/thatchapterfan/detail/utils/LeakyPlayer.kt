@@ -31,7 +31,7 @@ class LeakyPlayer(
         WeakReference(detailActivity)
 
     private val youtubeFragment: WeakReference<YouTubePlayerSupportFragmentX> =
-        WeakReference(YouTubePlayerSupportFragmentX.newInstance())
+        WeakReference(YouTubePlayerSupportFragmentX())
 
     private val TAG = "LeakyPlayer"
 

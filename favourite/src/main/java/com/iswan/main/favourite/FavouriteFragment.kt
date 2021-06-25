@@ -2,21 +2,31 @@ package com.iswan.main.favourite
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.paging.filter
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.iswan.main.core.domain.adapters.VideosPagingDataAdapter
 import com.iswan.main.core.domain.model.Video
 import com.iswan.main.thatchapterfan.databinding.FragmentFavouriteBinding
 import com.iswan.main.thatchapterfan.detail.DetailActivity
 import com.iswan.main.thatchapterfan.di.FavouriteDependencies
 import dagger.hilt.android.EntryPointAccessors
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FavouriteFragment : Fragment() {
@@ -28,12 +38,14 @@ class FavouriteFragment : Fragment() {
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavouriteBinding.inflate(inflater, container, false)
-        return binding.root
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +55,7 @@ class FavouriteFragment : Fragment() {
         val videoAdapter = VideosPagingDataAdapter()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.videos.collect {
+            viewModel.videos.collectLatest {
                 videoAdapter.submitData(it)
             }
         }
@@ -52,6 +64,21 @@ class FavouriteFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = videoAdapter
+        }
+
+        videoAdapter.addLoadStateListener { loadState ->
+            binding.apply {
+                val refresh = loadState.source.refresh
+
+                val empty = refresh is LoadState.NotLoading
+                        && videoAdapter.itemCount == 0
+
+                this.apply {
+                    binding.viewEmpty.root.visibility =
+                        if (empty) View.VISIBLE
+                        else View.GONE
+                }
+            }
         }
 
         videoAdapter.setOnItemClickCallback (object : VideosPagingDataAdapter.IOnItemClickCallback {
@@ -73,8 +100,8 @@ class FavouriteFragment : Fragment() {
             .inject(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

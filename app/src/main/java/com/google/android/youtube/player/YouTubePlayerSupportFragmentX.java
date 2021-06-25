@@ -40,7 +40,7 @@ public class YouTubePlayerSupportFragmentX extends Fragment implements YouTubePl
     private void a() {
         if (this.c != null && this.e != null) {
             this.c.a(this.f);
-            this.c.a(this.getActivity(), this, this.d, this.e, this.b);
+            this.c.a(this.requireActivity() , this, this.d, this.e, this.b);
             this.b = null;
             this.e = null;
         }
@@ -53,7 +53,7 @@ public class YouTubePlayerSupportFragmentX extends Fragment implements YouTubePl
     }
 
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
-        this.c = new YouTubePlayerView(this.getActivity(), (AttributeSet)null, 0, this.a);
+        this.c = new YouTubePlayerView(this.requireActivity(), (AttributeSet)null, 0, this.a);
         this.a();
         return this.c;
     }
@@ -85,14 +85,14 @@ public class YouTubePlayerSupportFragmentX extends Fragment implements YouTubePl
     }
 
     public void onDestroyView() {
-        this.c.c(this.getActivity().isFinishing());
+        this.c.c(this.requireActivity().isFinishing());
         this.c = null;
         super.onDestroyView();
     }
 
     public void onDestroy() {
         if (this.c != null) {
-            FragmentActivity var1 = this.getActivity();
+            FragmentActivity var1 = this.requireActivity();
             this.c.b(var1 == null || var1.isFinishing());
         }
         super.onDestroy();
