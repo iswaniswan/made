@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iswan.main.core.databinding.ItemVideoBinding
 import com.iswan.main.core.domain.model.Video
-import com.iswan.main.core.ui.Utils
+import com.iswan.main.core.utils.Utils
 
 class VideosPagingDataAdapter:
     PagingDataAdapter<Video, VideosPagingDataAdapter.MovieViewHolder>(COMPARATOR) {

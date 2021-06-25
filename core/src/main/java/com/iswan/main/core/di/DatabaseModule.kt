@@ -2,6 +2,7 @@ package com.iswan.main.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.iswan.main.core.BuildConfig
 import com.iswan.main.core.data.source.local.database.Database
 import com.iswan.main.core.data.source.local.database.VideoDao
 import dagger.Module
@@ -22,12 +23,15 @@ class DatabaseModule {
     fun provideDatabase(@ApplicationContext context: Context): Database {
         val passphrase: ByteArray = SQLiteDatabase.getBytes("thatchapterfan".toCharArray())
         val factory = SupportFactory(passphrase)
-        return Room.databaseBuilder(
+        val database = Room.databaseBuilder(
             context,
             Database::class.java, "videos_db"
         ).fallbackToDestructiveMigration()
-            .openHelperFactory(factory)
-            .build()
+
+        if (BuildConfig.DEBUG) {
+            database.openHelperFactory(factory)
+        }
+        return database.build()
     }
 
     @Singleton

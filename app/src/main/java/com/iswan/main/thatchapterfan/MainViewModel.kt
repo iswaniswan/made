@@ -11,15 +11,4 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
 
     fun getUsername(): String = userUseCase.getUser().get("name").asString
-
-    /*
-    fun subscribeUser(name: String)
-
-    fun unsubscribeUser()
-
-    fun isUserSubscribed(): Boolean
-
-    fun getUser(): String?
-    * */
-
 }

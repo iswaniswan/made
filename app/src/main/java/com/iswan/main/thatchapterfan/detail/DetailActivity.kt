@@ -17,7 +17,7 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.iswan.main.core.BuildConfig
 import com.iswan.main.core.domain.model.Video
-import com.iswan.main.core.ui.Utils
+import com.iswan.main.core.utils.Utils
 import com.iswan.main.thatchapterfan.R
 import com.iswan.main.thatchapterfan.databinding.ActivityDetailBinding
 import com.iswan.main.thatchapterfan.detail.utils.MyPlaybackEventListener

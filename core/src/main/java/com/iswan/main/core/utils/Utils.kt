@@ -1,4 +1,4 @@
-package com.iswan.main.core.ui
+package com.iswan.main.core.utils
 
 import android.os.Build
 import java.text.DateFormatSymbols
@@ -7,7 +7,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 import java.util.*
-import kotlin.math.floor
 
 object Utils {
 

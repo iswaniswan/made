@@ -11,5 +11,4 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
 
     val pagedVideos = mainUseCase.getPagedVideos()
-
 }
