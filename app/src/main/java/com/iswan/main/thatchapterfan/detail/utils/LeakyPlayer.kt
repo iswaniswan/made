@@ -103,6 +103,7 @@ class LeakyPlayer(
         get() {
             backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.primaryDarkColor))
+            setOnClickListener { }
             setOnCheckedChangeListener(favouriteListener())
         }
 
