@@ -11,13 +11,16 @@ import java.util.*
 object Utils {
 
     fun simplifyOfNumber(counts: Int, unit: String = ""): String {
-        val hit: String
-        if (counts > 999999) {
-            hit = (counts / 1000000).toString() + "M"
-        } else if (counts <= 999999 && counts > 999) {
-            hit = (counts / 1000).toString() + "K"
-        } else {
-            hit = counts.toString()
+        val hit: String = when {
+            counts > 999999 -> {
+                (counts / 1000000).toString() + "M"
+            }
+            counts in 1000..999999 -> {
+                (counts / 1000).toString() + "K"
+            }
+            else -> {
+                counts.toString()
+            }
         }
         return hit + unit
     }
@@ -31,7 +34,7 @@ object Utils {
     }
 
 
-    fun converISO8601toDate(strDate: String): String {
+    fun convertISO8601toDate(strDate: String): String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val ta: TemporalAccessor = DateTimeFormatter.ISO_DATE_TIME.parse(strDate)
             val ld = LocalDate.from(ta)
@@ -47,7 +50,7 @@ object Utils {
             val year = cal.get(Calendar.YEAR)
             val m1 = cal.get(Calendar.MONTH)
             val dfs = DateFormatSymbols.getInstance()
-            val month = dfs.months.get(m1)
+            val month = dfs.months[m1]
             val day = cal.get(Calendar.DAY_OF_MONTH)
             return "$month $day $year"
         }
@@ -79,7 +82,6 @@ object Utils {
 
     private fun showAsDWMY(days: Int): String {
         var dwmy: String
-
         when {
             days < 7 -> days.let {
                 dwmy = if (it > 1) "$it days" else "$it day"

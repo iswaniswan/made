@@ -28,23 +28,6 @@ object Mapper {
         return videos
     }
 
-    fun mapEntitiesToModel(videos: List<VideoEntity>): List<Video> =
-        videos.map {
-            Video(
-                it.videoId,
-                it.title,
-                it.description,
-                it.thumbnails,
-                it.image,
-                it.publishedAt,
-                it.duration,
-                it.viewCount,
-                it.likeCount,
-                it.dislikeCount,
-                it.isFavourite
-            )
-        }
-
     fun mapEntityToModel(it: VideoEntity): Video =
         Video(
             it.videoId,
@@ -74,6 +57,4 @@ object Mapper {
             video.dislikeCount,
             video.isFavourite
         )
-
-
 }

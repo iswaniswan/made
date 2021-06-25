@@ -76,8 +76,8 @@ class SubscriptionActivity : AppCompatActivity() {
             }
 
             btnActivate.apply {
-                if (isSubscribed) text = getString(R.string.deactivate)
-                else text = getString(R.string.activate)
+                text = if (isSubscribed) getString(R.string.deactivate)
+                else getString(R.string.activate)
             }
         }
     }
