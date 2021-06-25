@@ -22,6 +22,7 @@ import com.iswan.main.thatchapterfan.R
 import com.iswan.main.thatchapterfan.databinding.ActivityDetailBinding
 import com.iswan.main.thatchapterfan.detail.utils.MyPlaybackEventListener
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.ref.WeakReference
 import java.text.NumberFormat
 
 
@@ -36,8 +37,8 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
 
     private val viewModel: DetailViewModel by viewModels()
 
-    private var _youtubeFragment: YouTubePlayerSupportFragmentX? = null
-    private val youtubeFragment get() = _youtubeFragment!!
+    private var _youtubeFragment: WeakReference<YouTubePlayerSupportFragmentX>? = null
+    private val youtubeFragment get() = _youtubeFragment?.get()!!
 
     companion object {
         const val EXTRA_VIDEO = "extra_video"
@@ -52,7 +53,7 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
 
         val mFragmentManager = supportFragmentManager
 
-        _youtubeFragment = YouTubePlayerSupportFragmentX.newInstance()
+        _youtubeFragment = WeakReference(YouTubePlayerSupportFragmentX.newInstance())
 
         mFragmentManager.commit {
             add(R.id.youtube_fragment, youtubeFragment)
@@ -85,7 +86,6 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
         get() {
             backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.primaryDarkColor))
-            setOnClickListener { }
             setOnCheckedChangeListener(favouriteListener())
         }
 
@@ -153,8 +153,8 @@ class DetailActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener 
     }
 
     override fun onResume() {
-        updateView()
         super.onResume()
+        updateView()
     }
 
     override fun onDestroy() {
