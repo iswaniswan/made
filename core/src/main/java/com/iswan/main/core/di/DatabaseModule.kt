@@ -23,15 +23,13 @@ class DatabaseModule {
     fun provideDatabase(@ApplicationContext context: Context): Database {
         val passphrase: ByteArray = SQLiteDatabase.getBytes("thatchapterfan".toCharArray())
         val factory = SupportFactory(passphrase)
-        val database = Room.databaseBuilder(
+        return Room.databaseBuilder(
             context,
             Database::class.java, "videos_db"
-        ).fallbackToDestructiveMigration()
-
-        if (!BuildConfig.DEBUG) {
-            database.openHelperFactory(factory)
-        }
-        return database.build()
+        )
+            .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 
     @Singleton
