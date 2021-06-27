@@ -2,7 +2,6 @@ package com.iswan.main.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.iswan.main.core.BuildConfig
 import com.iswan.main.core.data.source.local.database.Database
 import com.iswan.main.core.data.source.local.database.VideoDao
 import dagger.Module
