@@ -33,7 +33,6 @@ object Utils {
             .replace("S", "")
     }
 
-
     fun convertISO8601toDate(strDate: String): String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val ta: TemporalAccessor = DateTimeFormatter.ISO_DATE_TIME.parse(strDate)
