@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ThatChapterFan</string>
     <string name="version">Version</string>
-    <string name="app_version">2.0</string>
+    <string name="app_version">2.2</string>
     <string name="crime_case_videos">Crime Case Videos</string>
     <string name="menu_home">Home</string>
     <string name="menu_favourite">Favourite</string>
@@ -11,7 +11,8 @@
     <string name="your_name">Your Name</string>
     <string name="add_to_favourite">Add to favourite</string>
     <string name="remove_from_favourite">Remove from favourite</string>
-    <string name="empty">No Crime\'s here...</string>
+    <string name="empty">No Crime\'s here…</string>
+    <string name="views">Views</string>
     <string name="made">MADE</string>
     <string name="premium_features">Premium Features</string>
     <string name="activate_now">Activate Now</string>

@@ -58,3 +58,8 @@
   *** rewind();
 }
 #------------------------------ end ------------------------------------
+
+# proguard configuration for Glide
+#----------------------------- begin ----------------------------------
+-keep class com.pierfrancescosoffritti.androidyoutubeplayer.*
+#------------------------------ end ------------------------------------

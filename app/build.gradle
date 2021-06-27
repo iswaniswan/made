@@ -17,9 +17,11 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "playlistId", youtubePlaylistId
         buildConfigField "String", "API_KEY", youtubeApiKey
+        buildConfigField "String", "uri_subscription", uriSubscription
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -49,7 +51,5 @@ android {
 dependencies {
     implementation project(":core")
 
-    /* youtube video player */
-    implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation "com.airbnb.android:lottie:$versions.lottie"
 }

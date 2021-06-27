@@ -40,7 +40,6 @@ class PageKeyedRemoteMediator(
                 }
             }
 
-
             val apiResponse = service.getPlaylistItems(pageToken)
             if (apiResponse.items.isNotEmpty()) {
 

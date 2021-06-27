@@ -28,7 +28,7 @@ class DatabaseModule {
             Database::class.java, "videos_db"
         ).fallbackToDestructiveMigration()
 
-        if (BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             database.openHelperFactory(factory)
         }
         return database.build()

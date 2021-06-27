@@ -9,26 +9,24 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface VideoDao {
 
-    @Query("SELECT * FROM videos")
+    @Query("SELECT * FROM videos WHERE isFavourite=0")
     fun getAllVideos(): Flow<List<VideoEntity>>
 
     @Query("SELECT * FROM videos WHERE isFavourite=1")
     fun getFavouriteVideos(): PagingSource<Int, VideoEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertVideo(videos: List<VideoEntity>)
 
     @Update
     suspend fun updateFavourite(videoEntity: VideoEntity)
 
-    @Query("DELETE FROM videos")
+    @Query("DELETE FROM videos WHERE isFavourite=0")
     suspend fun clearVideos()
 
-    /* paging */
     @Query("SELECT * FROM videos")
     fun pagedVideos(): PagingSource<Int, VideoEntity>
 
-    /* remote keys query */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllKeys(remoteKey: List<RemoteKeys>)
 

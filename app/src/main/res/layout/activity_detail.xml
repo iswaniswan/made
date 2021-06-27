@@ -2,132 +2,42 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
+    android:tag="scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".detail.DetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:tag="constraintLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragmentX"
-            android:id="@+id/youtube_fragment"
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:tag="youtubePlayerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="fitCenter"
+            app:autoPlay="false"
+            app:showYouTubeButton="false"
+            app:showFullScreenButton="false" />
+
+        <include
+            android:id="@+id/youtube_content_data"
+            layout="@layout/content_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="visible"
-            app:layout_constraintDimensionRatio="H,4:3"/>
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            tools:text="@string/video_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/secondaryDarkColor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/youtube_fragment" />
-
-        <TextView
-            android:id="@+id/tv_views"
-            tools:text="1,234,567 views"
-            style="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toBottomOf="@id/tv_published"
-            app:layout_constraintStart_toStartOf="@id/youtube_fragment"
-            android:layout_marginStart="16dp"
-            android:textColor="#8F8F8F"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_published"
-            tools:text="Published on Feb 19 2020"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:textColor="#8F8F8F"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_likes"
-            tools:text="66K"
-            style="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toBottomOf="@id/tv_views"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:textColor="#8F8F8F"
-            android:gravity="center_vertical"
-            android:textAlignment="gravity"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            app:drawableStartCompat="@drawable/ic_like" />
-
-        <TextView
-            android:id="@+id/tv_dislikes"
-            tools:text="606"
-            style="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toBottomOf="@id/tv_views"
-            app:layout_constraintStart_toEndOf="@id/tv_likes"
-            android:layout_marginStart="24dp"
-            android:gravity="center_vertical"
-            android:textAlignment="gravity"
-            android:textColor="#8F8F8F"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            app:drawableStartCompat="@drawable/ic_dislike" />
-
-
-        <ToggleButton
-            app:layout_constraintTop_toTopOf="@id/tv_published"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tv_likes"
-            android:id="@+id/tb_favourite"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/button_favourite"
-            android:checked="false"
-            android:text=""
-            android:textOff=""
-            android:textOn=""
-            android:layout_gravity="end|center_vertical"/>
-
-        <TextView
-            app:layout_constraintTop_toBottomOf="@id/tv_likes"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/tv_description"
-            style="@style/TextAppearance.AppCompat.Medium"
-            tools:text="lorem ipsum doloret sit amet"
-            android:gravity="center_vertical"
-            android:textAlignment="gravity"
-            android:textColor="@color/secondaryLightColor"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
+            tools:visibility="visible" />
 
-        <View
-            app:layout_constraintTop_toBottomOf="@id/tv_description"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
