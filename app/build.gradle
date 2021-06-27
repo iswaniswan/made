@@ -48,6 +48,11 @@ android {
         jvmTarget = '1.8'
     }
 
+    packagingOptions {
+       pickFirst 'META-INF/core_release.kotlin_module'
+    }
+
+
     dynamicFeatures = [':subscription', ':favourite']
 }
 
