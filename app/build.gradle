@@ -48,10 +48,6 @@ android {
         jvmTarget = '1.8'
     }
 
-    packagingOptions {
-        pickFirst "META-INF/*"
-    }
-
     dynamicFeatures = [':subscription', ':favourite']
 }
 

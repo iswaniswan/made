@@ -15,6 +15,7 @@ import android.widget.ToggleButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.iswan.main.core.domain.model.Video
 import com.iswan.main.core.utils.Utils
@@ -156,15 +157,18 @@ class DetailActivity : AppCompatActivity() {
 
     private val ToggleButton.featuresFull: Unit
         get() {
-            backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.primaryDarkColor))
+            backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(this@DetailActivity, R.color.primaryDarkColor)
+            )
             setOnClickListener { }
             setOnCheckedChangeListener(favouriteListener())
         }
 
     private val ToggleButton.featuresLimit: Unit
         get() {
-            backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.disabled))
+            backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(this@DetailActivity, R.color.disabled)
+            )
             setOnClickListener { notifyPremium() }
             setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked != video.isFavourite) buttonView.isChecked = video.isFavourite
